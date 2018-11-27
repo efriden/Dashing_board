@@ -1,1 +1,1 @@
-web: gunicorn Dashing-board.wsgi
+web: gunicorn Dashing_board.wsgi
