@@ -131,8 +131,7 @@ USE_TZ = True
 ## Two rows commented out.
 #STATIC_URL = '/static/'
 
-#STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + 
-['static']))
+#STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
