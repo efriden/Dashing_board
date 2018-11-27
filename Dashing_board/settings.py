@@ -60,6 +60,10 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE = [
+	'whitenoise.middleware.WhiteNoiseMiddleware',
+	]
+
 ROOT_URLCONF = 'Dashing_board.urls'
 
 TEMPLATES = [
