@@ -36,6 +36,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Add your apps here to enable them
 	# My apps
+	#whitenoise
+	'whitenoise.runserver_nostatic',
+
+
 	'TestApp',
 
 	'dashing',
@@ -46,11 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
+	
     'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+	'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -51,7 +51,7 @@
     <Content Include="Procfile" />
     <Content Include="requirements.txt" />
     <Content Include="runtime.txt" />
-    <Content Include="TestApp\static\dashing-config.js" />
+    <Content Include="TestApp\static\TestApp\dashing-config.js" />
     <Content Include="TestApp\templates\dashing\dashboard.html" />
     <Content Include="TestApp\templates\TestApp\index.html" />
   </ItemGroup>
@@ -60,6 +60,7 @@
     <Folder Include="TestApp\" />
     <Folder Include="TestApp\migrations\" />
     <Folder Include="TestApp\static\" />
+    <Folder Include="TestApp\static\TestApp\" />
     <Folder Include="TestApp\templates\" />
     <Folder Include="TestApp\templates\dashing\" />
     <Folder Include="TestApp\templates\TestApp\" />
