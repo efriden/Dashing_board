@@ -39,7 +39,6 @@ INSTALLED_APPS = [
 	#whitenoise
 	'whitenoise.runserver_nostatic',
 
-
 	'TestApp',
 
 	'dashing',

@@ -26,6 +26,7 @@ dashboard.addWidget('clock_widget', 'Clock');
 //});
 
 dashboard.addWidget('weather_widget', 'Number', {
+	interval: 10000,
 	getData: function () {
 		var self = this;
 		$.get('/weather/', function (data) {
@@ -41,6 +42,7 @@ dashboard.addWidget('weather_widget', 'Number', {
 });
 
 dashboard.addWidget('trello_widget', 'List', {
+	color: 'steelblue',
 	getData: function () {
 		var self = this;
 		$.get('/trello/', function (data) {
@@ -56,6 +58,7 @@ dashboard.addWidget('trello_widget', 'List', {
 });
 
 dashboard.addWidget('forecast_widget', 'Graph', {
+	interval: 10000,
 	getData: function () {
 		var self = this;
 		$.get('/forecast/', function (data) {
@@ -63,7 +66,8 @@ dashboard.addWidget('forecast_widget', 'Graph', {
 				title: data.title,
 				moreInfo: data.moreInfo,
 				data: data.data,
-				value: data.value
+				value: data.value,
+				properties: { min: 'auto' }
 			})
 		});
 	}

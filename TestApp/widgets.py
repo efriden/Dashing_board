@@ -7,7 +7,13 @@ from dashing.widgets import ListWidget
 import TestApp.weather as w
 
 class Weather(NumberWidget):
-	title = "Temperatur i Uppsala"
+	def get_title(self):
+		weatherData = w.getCurrentWeather()
+		if (str(weatherData["weather"]).startswith("Ingen observation")==False):
+			result = weatherData["weather"]
+		else:
+			result = "Temperatur i Uppsala"
+		return result
 	def get_value(self):
 		weatherData = w.getCurrentWeather()
 		return str(weatherData["temperature"]) + "\u00b0C"
@@ -17,8 +23,6 @@ class Weather(NumberWidget):
 	def get_more_info(self):
 		weatherData = w.getCurrentWeather()
 		result = "Känns som " + str(int(weatherData["effectiveTemperature"])) + "\u00b0C."
-		if (str(weatherData["weather"]).startswith("Ingen observation")==False):
-			result += " " + weatherData["weather"]
 		return result
 
 class Forecast(GraphWidget):
@@ -31,14 +35,22 @@ class Forecast(GraphWidget):
 		temps = [point["y"] for point in fcstData]
 		return "Max: " + str(max(temps)) + "\u00b0C  Min: " + str(min(temps)) + "\u00b0C"
 
+
+
 class Trello(ListWidget):
 	title = "Lista!"
 	def get_data(self):
-		id = "5be4b7613703151ec11ec087"
-		token = "71da6dfae0e0362425f6a3316541725e6b82144841659c4f336655ed6790fcb5"
-		key = "17255da4b8e755d4f11ca295806afcb5"
+		rot13 = str.maketrans( 
+			"ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz", 
+			"NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
+		str.translate("Hello World! + Uryyb Jbeyq!", rot13)
+		idRot13 = '5or4o7613703151rp11rp087'
+		tokenRot13 = '71qn6qsnr0r0362425s6n3316541725r6o82144841659p4s336655rq6790spo5'
+		keyRot13 = '17255qn4o8r755q4s11pn295806nspo5'
 
-		url = "https://api.trello.com/1/lists/{}/cards?fields=name&key={}&token={}".format(id, key, token)
+		url = "https://api.trello.com/1/lists/{}/cards?fields=name&key={}&token={}".format(str.translate(idRot13, rot13),
+																						str.translate(keyRot13, rot13),
+																						str.translate(tokenRot13, rot13))
 
 		return [{ "label": key["name"], "value": ""} for key in get_jsonparsed_data(url)]
 		
