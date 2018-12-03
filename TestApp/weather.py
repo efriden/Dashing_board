@@ -9,6 +9,7 @@ import dateutil.parser
 #import numpy
 
 uppsalaStationCode = 97510
+uppsalaFlygplatsStationCode = 97530
 myLat = 59.836557
 myLong = 17.606889
 
@@ -179,7 +180,7 @@ def getCurrentWeather():
 	#sran = float(data["value"][0]["value"])
 
 	#weather, coded as a three digit int
-	data = getUppsalaData(13)
+	data = getUppsalaData(13, uppsalaFlygplatsStationCode)
 	summ = codeData[str(data["value"][0]["value"])]["description"]
 
 	effectiveTemp = effectiveTemperature(temp, wind)
@@ -210,10 +211,6 @@ def plotLatLong():
 	plt.scatter(long,lat)
 
 	plt.show()
-
-uppsalaStationCode = 97510
-myLat = 59.836557
-myLong = 17.606889
 
 #printWeatherData(getCurrentWeather())
 
