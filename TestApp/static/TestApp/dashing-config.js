@@ -4,26 +4,51 @@ var dashboard = new Dashboard();
 
 dashboard.addWidget('clock_widget', 'Clock');
 
-//dashboard.addWidget('knob_widget', 'Knob', {
-//	getData: function () {
-//		$.extend(this.scope, {
-//			title: "Arc",
-//			data: {
-//				angleArc: 270,
-//				fgColor: "lightgreen",
-//				angleOffset: 225,
-//				displayInput: false,
-//				displayPrevious: false,
-//				step: 1,
-//				min: 0,
-//				max: 100,
-//				readOnly: true
-//			},
-//			value: 14,
-//			moreInfo: "Mer info."
-//		});
-//	}
-//});
+dashboard.addWidget('forecast_widget', 'Graph', {
+	interval: 10000,
+	getData: function () {
+		var self = this;
+		$.get('/forecast/', function (data) {
+			$.extend(self.scope, {
+				title: data.title,
+				moreInfo: data.moreInfo,
+				data: data.data,
+				value: data.value,
+				properties: { min: 'auto' }
+			})
+		});
+	}
+});
+
+dashboard.addWidget('sun_widget', 'Knob', {
+	getData: function () {
+		var self = this;
+		$.get('/sun/', function (data) {
+			$.extend(self.scope, {
+				title: data.title,
+				data: data.data,
+				value: data.value,
+				moreInfo: data.moreInfo
+			});
+		})
+	}
+});
+
+dashboard.addWidget('trello_widget', 'List', {
+	color: 'steelblue',
+	row: 1,
+	getData: function () {
+		var self = this;
+		$.get('/trello/', function (data) {
+			$.extend(self.scope, {
+				title: data.title,
+				moreInfo: data.moreInfo,
+				updatedAt: data.updatedAt,
+				data: data.data
+			});
+		});
+	}
+});
 
 dashboard.addWidget('weather_widget', 'Number', {
 	interval: 10000,
@@ -37,38 +62,6 @@ dashboard.addWidget('weather_widget', 'Number', {
 				detail: data.detail,
 				value: data.value
 			});
-		});
-	}
-});
-
-dashboard.addWidget('trello_widget', 'List', {
-	color: 'steelblue',
-	getData: function () {
-		var self = this;
-		$.get('/trello/', function (data) {
-			console.log(data);
-			$.extend(self.scope, {
-				title: data.title,
-				moreInfo: data.moreInfo,
-				updatedAt: data.updatedAt,
-				data: data.data
-			});
-		});
-	}
-});
-
-dashboard.addWidget('forecast_widget', 'Graph', {
-	interval: 10000,
-	getData: function () {
-		var self = this;
-		$.get('/forecast/', function (data) {
-			$.extend(self.scope, {
-				title: data.title,
-				moreInfo: data.moreInfo,
-				data: data.data,
-				value: data.value,
-				properties: { min: 'auto' }
-			})
 		});
 	}
 });

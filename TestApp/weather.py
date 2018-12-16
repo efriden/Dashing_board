@@ -8,6 +8,8 @@ import datetime
 import dateutil.parser
 #import numpy
 
+import time
+
 uppsalaStationCode = 97510
 uppsalaFlygplatsStationCode = 97530
 myLat = 59.836557
@@ -143,6 +145,33 @@ def effectiveTemperature(temp,wind):
 		return temp
 	else:
 		return int(13.126667 + 0.6215*temp - 13.924748*(wind**0.16) + 0.4875195*temp*(wind**0.16))
+
+
+def getSunTimes():
+	url = "https://api.sunrise-sunset.org/json?lat={}&lng={}&formatted=0&ddatetime=today".format(myLat,myLong)
+	data = get_jsonparsed_data(url)
+
+	sunriseISO = data['results']['sunrise']
+	sunriseUTC = datetime.datetime.fromisoformat(sunriseISO)
+	sunrise = datetime_from_utc_to_local(sunriseUTC)
+
+	sunsetISO = data['results']['sunset']
+	sunsetUTC = datetime.datetime.fromisoformat(sunsetISO)
+	sunset = datetime_from_utc_to_local(sunsetUTC)
+
+	return {
+			'sunrise' : sunrise, 
+			'sunset' : sunset, 
+			'current' : datetime.datetime.utcnow()
+			}
+
+def datetime_from_utc_to_local(utc_datetime):
+	"""
+	presumes difference in tzs are same always
+	"""
+	now_timestamp = time.time()
+	offset = datetime.datetime.fromtimestamp(now_timestamp) - datetime.datetime.utcfromtimestamp(now_timestamp)
+	return utc_datetime + offset
 
 def getCurrentWeather():
 	#airtemperature and date
