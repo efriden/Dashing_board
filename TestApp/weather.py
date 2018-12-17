@@ -8,12 +8,16 @@ import datetime
 import dateutil.parser
 #import numpy
 
+import pytz
+
 import time
 
 uppsalaStationCode = 97510
 uppsalaFlygplatsStationCode = 97530
 myLat = 59.836557
 myLong = 17.606889
+
+_tz = pytz.timezone('Europe/Stockholm')
 
 def get_jsonparsed_data(url):
     """
@@ -162,16 +166,11 @@ def getSunTimes():
 	return {
 			'sunrise' : sunrise, 
 			'sunset' : sunset, 
-			'current' : datetime.datetime.utcnow()
+			'current' : datetime_from_utc_to_local(datetime.datetime.utcnow())
 			}
 
 def datetime_from_utc_to_local(utc_datetime):
-	"""
-	presumes difference in tzs are same always
-	"""
-	now_timestamp = time.time()
-	offset = datetime.datetime.fromtimestamp(now_timestamp) - datetime.datetime.utcfromtimestamp(now_timestamp)
-	return utc_datetime + offset
+	return utc_datetime.replace(tzinfo=datetime.timezone.utc).astimezone(tz=_tz)
 
 def getCurrentWeather():
 	#airtemperature and date

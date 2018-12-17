@@ -39,13 +39,13 @@ class Forecast(GraphWidget):
 		return "Max: " + str(max(temps)) + "\u00b0C  Min: " + str(min(temps)) + "\u00b0C"
 
 class Sun(KnobWidget):
-	title = "|"
+	title = "▼"
 	value = 100
 	def get_data(self):
 		t = w.getSunTimes()
 		return {
 				'angleArc': ((time2Minutes(t['sunset']) - time2Minutes(t['sunrise'])) / 1440 ) * 360,
-				'fgColor': '#ffa73d',
+				'fgColor': 'ffa73d',
 				'angleOffset': ((time2Minutes(t['sunrise']) + time2Minutes(t['current'])) / 1440) * 360,
 				'displayInput': False,
 				'displayPrevious': False,
